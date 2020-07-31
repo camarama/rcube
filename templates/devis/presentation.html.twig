@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Choisir Produit{% endblock %}
+
+{% block body %}
+
+    <!--==========================
+      Portfolio Section
+    ============================-->
+    <section id="portfolio" class="section-bg mt-5">
+        <div class="container">
+
+            <header class="section-header">
+                <h3 class="section-title">Choisir le type de produit</h3>
+            </header>
+{#            {{ dump(app.request.attributes.get('_route')) }}#}
+            <div class="row">
+                <div class="col-lg-12">
+                    <ul id="portfolio-flters">
+                        <li data-filter="*" class="filter-active">Tout</li>
+                        {% for category in categories %}
+                            <li data-filter=".filter-{{ category.id }}">{{ category.nom }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+            <div class="row portfolio-container">
+                {% for produit in produits %}
+                    <div class="col-lg-4 col-md-6 portfolio-item filter-{{ produit.categorie.id }} wow fadeInUp" data-wow-delay="0.2s">
+                        <div class="portfolio-wrap">
+                            <figure>
+                                <img src="{{ produit.photoPath|imagine_filter('choix_produit') }}" class="img-fluid" alt="{{ produit.nom }}">
+{#                                <a href="img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>#}
+                                <a href="{{ path('admin_choix_produit', {'id': produit.id }) }}" class="link-details" title="Choisir"><i class="ion ion-android-open"></i></a>
+                            </figure>
+
+                            <div class="portfolio-info">
+                                <h4><a href="#">{{ produit.nom }}</a></h4>
+                                <p>{{ produit.categorie.nom }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    <!-- #portfolio -->
+
+{% endblock %}
+
+
+

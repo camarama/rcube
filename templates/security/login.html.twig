@@ -1,0 +1,127 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Connexion !{% endblock %}
+
+{% block body %}
+{#
+<form method="post">
+    {% if error %}
+        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    {% if app.user %}
+        <div class="mb-3">
+            You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+        </div>
+    {% endif %}
+
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="Password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+-------------------------------------------------------------------------------------------------
+
+        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+        See https://symfony.com/doc/current/security/remember_me.html
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" name="_remember_me"> Remember me
+            </label>
+        </div>
+ -----------------------------------------------------------------------------------------------
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Sign in
+    </button>
+</form>
+    #}
+
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        {#
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        #}
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+            <div class="auth-box bg-dark border-top border-secondary">
+                <div id="loginform">
+                    <div class="text-center p-t-20 p-b-20 mb-4 mt-4">
+                        <span class="db">
+                            <a href="{{ path('app_accueil') }}">
+                            <img src="{{ asset('admin/assets/images/logo_blanc.svg') }}" alt="PLASTIC R³" height="100" />
+                            </a>
+                        </span>
+                    </div>
+                    <!-- Form -->
+                    <form class="form-horizontal m-t-20" id="loginform" method="post">
+                        <div class="row p-b-30">
+                            <div class="col-12 mb-4">
+                                {% for label, messages in app.flashes %}
+                                    {% for message in messages %}
+                                        <div class="alert alert-{{ label }}" role="alert">
+                                            {{ message }}
+                                        </div>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="ti-user"></i></span>
+                                    </div>
+                                    <input type="text" class="form-control form-control-lg" name="email" id="inputEmail" placeholder="Adresse mail"
+                                           value="{{ last_username }}" aria-label="Username" aria-describedby="basic-addon1" required="required">
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="ti-pencil"></i></span>
+                                    </div>
+                                    <input type="password" class="form-control form-control-lg" name="password" id="inputPassword" placeholder="Mot de passe"
+                                           aria-label="Password" aria-describedby="basic-addon1" required="required">
+                                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="text-muted">Vous n'avez pas encore de compte R³ ?
+{#                                <a href="{{ path('') }}" class="text-white"> Cliquer ici !</a>#}
+                            </p>
+                        </div>
+                        <div class="row border-top border-secondary">
+                            <div class="col-12 mt-4">
+                                <div class="form-group">
+                                    <div class="p-t-20">
+                                        <a href="{{ path('app_forgot_password_request') }}" class="btn btn-info" type="button"><i class="fa fa-lock m-r-5"></i> Mot de passe oublié ?</a>
+                                        <button class="btn btn-success float-right" type="submit">Se Connecter</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Renouvellement de mot de passe !{% endblock %}
+
+{% block body %}
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        {#
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        #}
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+            <div class="auth-box bg-dark border-top border-secondary">
+                <div>
+                    <div class="text-center">
+                        <span class="text-white">
+                            Modification de mot de passe.
+                        </span>
+                    </div>
+                    <div class="row m-t-20">
+                        <!-- Form -->
+                        {{ form_start(resetForm, {'attr':{'class': 'col-12'}}) }}
+                        <!-- email -->
+                        <div class="input-group mt-4 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-warning text-white"><i class="ti-pencil"></i></span>
+                            </div>
+                            {{ form_widget(resetForm.plainPassword.first) }}
+                        </div>
+                        <div class="input-group mt-4 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-warning text-white"><i class="ti-pencil"></i></span>
+                            </div>
+                            {{ form_widget(resetForm.plainPassword.second) }}
+                        </div>
+                        <!-- pwd -->
+                        <div class="row mb-3 pb-3">
+                            <div class="col-12 text-center">
+                                <button class="btn btn-info" type="submit" >Valider votre nouveau mot de passe</button>
+                            </div>
+                        </div>
+                        <div class="row border-bottom border-secondary"></div>
+                        {{ form_end(resetForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

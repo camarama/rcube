@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Agenda{% endblock %}
+
+{% block body %}
+    <section id="portfolio" class="section-bg mt-5">
+        <div class="container">
+            <h1>Create new Agenda</h1>
+
+            {{ include('agenda/_form.html.twig') }}
+        </div>
+    </section>
+
+{#    <a href="{{ path('agenda_show', {'id': agenda.id}) }}">back to list</a>#}
+{% endblock %}

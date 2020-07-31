@@ -1,0 +1,82 @@
+
+<footer id="footer">
+    <div class="footer-top">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-3 col-md-6 footer-info">
+                    <div class="">
+                        <img src="{{ asset('admin/assets/images/logo_blanc.svg') }}" alt="" class="mr-3 float-left"  height="80">
+                        <p class="text-justify">
+                            <strong class="text-uppercase">{{ entreprise_nom }}</strong> est une société de réparation
+                            d'emballages plastiques industriels et commerciaux.
+                            Nous réparons les thermoplastiques en fin de vie de type PP et PE principalement utilisés
+                            pour le stockage et le transport en vue de leur réutilisation.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-links">
+                    <h4>Liens Utiles</h4>
+                    <ul>
+                        <li><i class="ion-ios-arrow-right"></i> <a href="#" class="text-capitalize">Politique de Confidentialité</a></li>
+                        <li><i class="ion-ios-arrow-right"></i> <a href="#" class="text-capitalize">Conditions générales</a></li>
+                        <li><i class="ion-ios-arrow-right"></i> <a href="{{ path('app_accueil') }}#about" class="text-capitalize">Qui sommes-nous ?</a></li>
+                        <li><i class="ion-ios-arrow-right"></i> <a href="{{ path('app_prise_rdv') }}" class="text-capitalize">Prendre rdv</a></li>
+                        <li><i class="ion-ios-arrow-right"></i> <a href="{{ path('app_accueil') }}#services" class="text-capitalize">Nos Services</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-contact">
+                    <h4>Contactez-nous</h4>
+                    <p>
+                        {{ entreprise_adresse }}<br>
+                        {{ entreprise_cp }}, {{ entreprise_ville }}<br>
+                        {{ entreprise_pays }} <br>
+                        <strong>Tel:</strong> {{ entreprise_tel }}<br>
+                        <strong>E-mail:</strong> {{ entreprise_email }}<br>
+                    </p>
+
+                    <div class="social-links">
+                        <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                        <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                        <a href="#" class="instagram"><i class="fa fa-instagram"></i></a>
+                        <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                        <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                    </div>
+
+                </div>
+
+                <div class="col-lg-3 col-md-6 footer-newsletter">
+                    <h4>Newsletter</h4>
+                    <p class="text-justify">
+                        <strong>Bienvenue !</strong>
+                        <br>Inscrivez-vous gratuitement à la Newsletter de <strong>{{ entreprise_nom }}</strong>
+                        pour être parmi les premiers à recevoir toutes nos offres exclusives. Nous vous assurons une offre
+                        garantie par mois.
+                    </p>
+                    <form action="" method="post">
+                        <input type="email" name="email"><input type="submit"  value="S'inscrire">
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="copyright">
+            {{ entreprise_nom }} &copy; {{ 'now'|date('Y') }} - Tous droits réservés
+        </div>
+        {#<div class="credits">
+            <!--
+              All the links in the footer should remain intact.
+              You can delete the links only if you purchased the pro version.
+              Licensing information: https://bootstrapmade.com/license/
+              Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=BizPage
+            -->
+            Best <a href="https://bootstrapmade.com/">Bootstrap Templates</a> by BootstrapMade
+        </div>#}
+    </div>
+</footer>
+<!-- #footer -->

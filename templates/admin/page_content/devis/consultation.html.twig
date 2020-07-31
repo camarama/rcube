@@ -1,0 +1,49 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Consultation des devis{% endblock %}
+
+{% block page_content %}
+    <div class="card">
+        <div class="card-title"><h1 class="d-flex justify-content-center mt-3">Consultation des devis</h1></div>
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover table-secondary">
+                    <thead class="text-uppercase">
+                    <tr>
+                        <th class="font-weight-bold" scope="col">N°</th>
+                        <th class="font-weight-bold" scope="col">Date</th>
+                        <th class="font-weight-bold" scope="col">Référence</th>
+                        <th class="font-weight-bold" scope="col">Client</th>
+                        <th class="font-weight-bold" scope="col">Montant TTC</th>
+                        <th class="font-weight-bold" scope="col">Valider</th>
+                        <th class="font-weight-bold" scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for commande in commandes %}
+                        <tr>
+                            <th class="font-weight-bold" scope="row">{{ loop.index }}</th>
+                            <td>{{ commande.date|date('d/m/Y') }}</td>
+                            <td>{{ commande.reference }}</td>
+                            <td>{{ commande.client.designation }}</td>
+                            <td>{{ commande.prestation.totalTTC|number_format(2, ', ', ' ', ' ') }} €</td>
+                            <td>{% if "{{ commande.valider }}" == true %} Oui {% else %} Non {% endif %}</td>
+                            <td>
+                                <a href="{{ path('admin_commande_details', {'id' : commande.id}) }}"
+                                   title="Consulter devis" class="text-danger" target="_blank">
+                                    <i class="mdi mdi-file-pdf font-24"></i>
+                                </a>
+                                <a href="{{ path('admin_commande_facture', {'id' : commande.id}) }}"
+                                   title="Créer facture" class="text-success">
+                                    <i class="mdi mdi-receipt font-24"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

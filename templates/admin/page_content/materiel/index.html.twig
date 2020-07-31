@@ -1,0 +1,43 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Materiel index{% endblock %}
+
+{% block page_content %}
+    <h1>Materiel index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>Mesure</th>
+                <th>Reference</th>
+                <th>PrixUnitaire</th>
+                <th>Tva</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for materiel in materiels %}
+            <tr>
+                <td>{{ materiel.id }}</td>
+                <td>{{ materiel.designation }}</td>
+                <td>{{ materiel.mesure }}</td>
+                <td>{{ materiel.reference }}</td>
+                <td>€ {{ materiel.prixUnitaire }}</td>
+                <td>{{ materiel.tva }}</td>
+                <td>
+                    <a href="{{ path('admin_materiel_show', {'id': materiel.id}) }}">show</a>
+                    <a href="{{ path('admin_materiel_edit', {'id': materiel.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_materiel_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "email_base.html.twig" %}
+
+{% block content %}
+    <div class="container">
+        <div class="card mb-3">
+            <img src="" alt="" class="card-img-top">
+            <div class="card-body">
+                <h5>Cher Utilisateur (trice), </h5>
+                <p class="text-justify">
+                    Suite à votre demande de réinitialisation de mot de passe, nous vous invitons à cliquer sur le lien ci-dessous pour changer votre mot de passe.
+                </p>
+                <p class="text-justify">
+                    <a href="{{ url('app_reset_password', {token: resetToken.token}) }}">Changer votre mot de passe en suivant les instructions ...</a>
+                </p>
+                <p class="text-justify">
+                    Ce lien expire dans {{ tokenLifetime|date('g') }} heures.
+                </p>
+                <p class="text-justify">
+                    Vous en souhaitant bonne réception, nous vous prions de croire, Madame, Monsieur, en l'assurance de nos salutations distinguées.
+                </p>
+                <p class="text-justify">
+                    Cordialement,
+                </p>
+                <p class="text-justify">
+                    Mohamed Camara
+                    <br>Directeur
+                </p>
+            </div>
+            <div class="card-footer">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <img src="{{ absolute_url(asset('home/img/logo_180.jpg')) }}" height="80" width="80" alt="PLASTIC R³">
+                    </li>
+                    <li class="list-inline-item">
+                        <p>
+                            {{ entreprise_adresse }}<br>
+                            {{ entreprise_cp }} {{ entreprise_ville }} - {{ entreprise_pays }}<br>
+                            {{ entreprise_tel }}<br>
+                            {{ entreprise_email }}<br>
+                            <a href="{{ path('app_accueil') }}">{{ entreprise_site }}</a>
+                        </p>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock %}

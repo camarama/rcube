@@ -1,0 +1,11 @@
+{% extends 'email_base.html.twig' %}
+
+{% block content %}
+    Rdv pris pour le : {{ demande.date|date('d/m/Y H:m') }} <br>
+    Par : {{ demande.nom }} {{ demande.prenom }} <br>
+    De la société : {{ demande.entreprise }} <br>
+{#    Siret : {{ demande.siret }} <br>#}
+    Tel : {{ demande.tel }} <br>
+    Email : {{ demande.email }} <br>
+    Adresse : {{ demande.adresse }}, {{ demande.cp }} {{ demande.ville }} - {{ demande.pays }} <br>
+{% endblock %}

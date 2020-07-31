@@ -1,0 +1,8 @@
+{{ form_start(form) }}
+    {{ form_row(form.reference) }}<br>
+    {{ form_row(form.nom) }}<br>
+    {{ form_row(form.description) }}<br>
+    {{ form_row(form.categorie) }}
+    {{ form_row(form.image) }}<br>
+    <button class="btn">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

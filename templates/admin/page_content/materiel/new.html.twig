@@ -1,0 +1,11 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}New Materiel{% endblock %}
+
+{% block page_content %}
+    <h1>Create new Materiel</h1>
+
+    {{ include('admin/page_content/materiel/_form.html.twig') }}
+
+    <a href="{{ path('admin_materiel_index') }}">back to list</a>
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agenda{% endblock %}
+
+{% block body %}
+    <h1>Agenda</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ agenda.id }}</td>
+            </tr>
+            <tr>
+                <th>Rendez_vous</th>
+                <td>{{ agenda.rendezVous ? agenda.rendezVous|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ agenda.designation }}</td>
+            </tr>
+            <tr>
+                <th>Note</th>
+                <td>{{ agenda.note }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('agenda_index') }}">back to list</a>
+
+    <a href="{{ path('agenda_edit', {'id': agenda.id}) }}">edit</a>
+
+    {{ include('agenda/_delete_form.html.twig') }}
+{% endblock %}

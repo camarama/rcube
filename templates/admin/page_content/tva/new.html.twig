@@ -1,0 +1,11 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}New Tva{% endblock %}
+
+{% block page_content %}
+    <h1>Create new Tva</h1>
+
+    {{ include('admin/page_content/tva/_form.html.twig') }}
+
+    <a href="{{ path('admin_tva_index') }}">back to list</a>
+{% endblock %}

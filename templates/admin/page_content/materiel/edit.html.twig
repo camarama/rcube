@@ -1,0 +1,13 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Edit Materiel{% endblock %}
+
+{% block page_content %}
+    <h1>Edit Materiel</h1>
+
+    {{ include('admin/page_content/materiel/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_materiel_index') }}">back to list</a>
+
+    {{ include('admin/page_content/materiel/_delete_form.html.twig') }}
+{% endblock %}

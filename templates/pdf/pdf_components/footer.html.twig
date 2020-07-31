@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{{ absolute_url(asset('home/lib/bootstrap/css/bootstrap.min.css')) }}">
+
+</head>
+<body>
+    <hr class="border-success">
+    <div class="d-flex justify-content-center">
+        <div class="text-center">
+            {{ entreprise_adresse }} {{ entreprise_cp }} {{ entreprise_ville }} - {{ entreprise_pays }}<br>
+            {{ entreprise_tel}} - {{ entreprise_email }} - {{ entreprise_site }}<br>
+            N° Siret : {{ entreprise_siret }} - N° TVA : {{ entreprise_tva }}<br>
+        </div>
+    </div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{{ absolute_url(asset('admin/assets/libs/jquery/dist/jquery.slim.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('admin/assets/libs/popper.js/dist/popper.min.js')) }}"></script>
+<script src="{{ absolute_url(asset('admin/assets/libs/bootstrap/dist/js/bootstrap.min.js')) }}"></script>
+</body>
+</html>
+
+

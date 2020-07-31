@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}produit{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        fieldset.materiel-form{
+            border: 1px groove #ddd !important;
+            padding: 0 1.4em 1.4em 1.4em !important;
+            margin: 0 0 1.5em 0 !important;
+            -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+        }
+        legend.materiel-legend{
+            font-size: 1.2em !important;
+            font-weight: bold !important;
+            text-align: left !important;
+            width:auto;
+            padding:0 10px;
+            border-bottom:none;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+    <section id="portfolio" class="section-bg mt-5">
+        <div class="container">
+            <header class="text-center">
+                <h3 class="text-muted">Formulaire devis</h3>
+                <hr style="width: 15%">
+            </header>
+            <div class="row align-items-start">
+                <div class="col-12">
+                    <form action="{{ path('admin_ajout_produit', {'id': produit.id}) }}" method="post">
+                        <div class="media mt-3 form-group">
+                            <img class="mr-3" src="{{ produit.getPhotoPath | imagine_filter('choix_produit') }}" alt="{{ produit.nom }}">
+                            <div class="media-body d-flex justify-content-between">
+                                <h5 class="mt-0">{{ produit.nom }}</h5>
+                                <div class="form-check mt-3">
+                                    <h5>Choisir la couleur </h5>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="couleur" value="rouge">
+                                        <label class="form-check-label" for="couleur">Rouge</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="couleur" value="bleu">
+                                        <label class="form-check-label" for="couleur">Bleu</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="couleur" value="jaune">
+                                        <label class="form-check-label" for="couleur">Jaune</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="couleur" value="noir">
+                                        <label class="form-check-label" for="couleur">Noir</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="couleur" value="gris">
+                                        <label class="form-check-label" for="couleur">Gris</label>
+                                    </div>
+                                    <div class="form-check-inline">
+                                        <input class="form-check-input" type="checkbox" name="couleur" value="vert">
+                                        <label class="form-check-label" for="couleur">Vert</label>
+                                    </div>
+                                    <div class="form-group mt-3">
+                                        <h5>Choisir la quantité</h5>
+                                        <input class="form-control" type="number" name="qte" placeholder="Quantité minimum à choisir (30)" min="30">
+                                    </div>
+                                    {#<div class="form-check mt-3">
+                                        <h5>Souhaitez-vous faire nettoyer vos produits ?</h5>
+                                        <div class="form-check-inline">
+                                            <input id="nettoyage_oui" class="form-check-input" type="radio" name="nettoyage" value="oui">
+                                            <label class="form-check-label" for="nettoyage_oui">OUI</label>
+                                        </div>
+                                        <div class="form-check-inline">
+                                            <input id="nettoyage_non" class="form-check-input" type="radio" name="nettoyage" value="non">
+                                            <label class="form-check-label" for="nettoyage_non">NON</label>
+                                        </div>
+                                    </div>#}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card">
+                            <div class="card-body">
+                                <fieldset class="form-group materiel-form">
+                                    <legend class="materiel-legend">Cochez les cases correspondant aux matériaux à utiliser pour ce produit</legend>
+                                    {% for materiel in materiels %}
+                                        {% if materiel.designation != "main d'oeuvre" and materiel.designation != "nettoyage" %}
+                                            <div class="form-check-inline">
+                                                <label class="form-check-label mt-2">
+                                                    {#                                                <input type="checkbox" class="form-check-input" name="{{ materiel.designation }}">#}
+                                                    {{ materiel.designation }}
+                                                    <input type="number" class="form-control"
+                                                           name="fournitures[{{ materiel.designation }}]" placeholder="{% if materiel.designation == 'transport' %} Total Kilométrage {% else %}  Quantité du matériel {% endif %}">
+                                                </label>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                </fieldset>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-around mt-3">
+                            <a href="{{ path('admin_presentation') }}" class="btn btn-primary">Retour</a>
+                            <button type="submit" class="btn btn-success">Continuer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+

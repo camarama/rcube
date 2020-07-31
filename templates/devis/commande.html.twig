@@ -1,0 +1,132 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commande{% endblock %}
+
+{% block body %}
+    <section id="portfolio" class="section-bg mt-5">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h3 class="">Récapitulatif du devis</h3>
+            </div>
+
+{#
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+#}
+
+            <div class="card border-light mb-3">
+                {#<div class="card-header d-flex justify-content-between font-weight-bold">
+                    <p class="m-0">N° de devis : {{ commande.reference }}</p>
+                    <p class="m-0">Date du devis : {{ commande.date|date('d/m/Y') }}</p>
+                </div>#}
+                <div class="card-body">
+                    <h5 class="card-title font-weight-bold mb-3">{{ commande.client.designation }}</h5>
+                    <div class="d-flex justify-content-around">
+                        <div class="card-subtitle">
+                            <div class="card-subtitle p-3 bg-secondary text-light">Adresse de Facturation :</div>
+                            <p class="card-text text-muted pl-3">
+                                {{ commande.devis.adresses.facturation.rue }}<br>
+                                {{ commande.devis.adresses.facturation.cp }} {{ commande.devis.adresses.facturation.ville }}
+                                <br>{{ commande.devis.adresses.facturation.pays }}
+                            </p>
+                        </div>
+                        <div class="card-subtitle">
+                            <div class="card-subtitle p-3 bg-secondary text-light">Adresse d'enlevement :</div>
+                            <p class="card-text text-muted pl-3">
+                                {{ commande.devis.adresses.enlevement.rue }}<br>
+                                {{ commande.devis.adresses.enlevement.cp }} {{ commande.devis.adresses.enlevement.ville }}
+                                <br>{{ commande.devis.adresses.enlevement.pays }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+{#            {{ dump(commande) }}#}
+            <div class="table-responsive-md">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Couleur</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Mesure</th>
+                        <th scope="col">Prix Unitaire</th>
+                        <th scope="col">Total HT</th>
+                        <th scope="col">TVA</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for produit in commande.devis.produits %}
+                        <tr class="bg-light">
+                            <th scope="row"><strong>{{ loop.index }}</strong></th>
+                            <td><strong>{{ produit.nom }}</strong></td>
+                            <td><strong>{{ produit.couleur }}</strong></td>
+                            <td colspan="4"><strong>{{ produit.quantite }}</strong></td>
+                        </tr>
+                        {% for materiel in produit.materiels %}
+                                <tr class="text-white bg-secondary">
+                                    <th scope="row"></th>
+                                    <td colspan="2">
+                                        <small><em>- {{ materiel.designation }}</em></small>
+                                    </td>
+                                    <td>
+                                        <small><em>{{ materiel.quantite }}</em></small>
+                                    </td>
+                                    <td>
+                                        <small><em>{{ materiel.mesure }}</em></small>
+                                    </td>
+                                    <td>
+                                        <small><em>{{ materiel.prix_unitaire }} €</em></small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <em>{{ materiel.prixHT }} €</em>
+                                        </small>
+                                    </td>
+                                    <td colspan="2">
+                                        <small><em>{{ materiel.tva }} €</em></small>
+                                    </td>
+                                </tr>
+                        {% endfor %}
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-around">
+                <div class="d-flex align-items-end col-md-10">
+
+{#                    <div class="d-flex justify-content-between">#}
+                        <a href="{{ path('admin_suppression_commande') }}" class="btn btn-danger mr-auto mb-4">Annuler le devis</a>
+                        <a href="{{ path('admin_validation') }}" class="btn btn-success ml-auto mb-4">Valider le devis</a>
+{#                        <a href="#" class="btn btn-success ml-auto mb-4">Payer et Continuer</a>#}
+{#                    </div>#}
+
+                </div>
+                <dl class="">
+                    <div class="d-flex mb-2 text-right">
+                        <dt class="mr-auto pr-3">Total HT :</dt>
+                        <dd class="ml-auto"><strong>{{ commande.devis.totalHT }} €</strong></dd>
+                    </div>
+                    {% for key, tva in commande.devis.tva %}
+                        <div class="d-flex mb-2 text-right">
+                            <dt class="mr-auto pr-3 text-capitalize">{{ key }} :</dt>
+                            <dd class="ml-auto"><strong>{{ tva }} €</strong></dd>
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex mb-2 text-right">
+                        <dt class="mr-auto pr-3">Total TTC :</dt>
+                        <dd class="ml-auto"><strong>{{ commande.devis.totalTTC }} €</strong></dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+

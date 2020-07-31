@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Demande de RDV{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('home/lib/jquery/jquery.datetimepicker.min.css') }}">
+{% endblock %}
+
+{% block body %}
+    <main id="main">
+        <section id="call-to-action" class="wow fadeIn mt-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 mt-3">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-header h4 bg-white border-white text-uppercase text-center">
+                                Demande de rdv pour devis
+                            </div>
+                            <div class="card-body text-white">
+                                <p class="card-text">
+                                    Pour estimer au plus juste votre devis personnalisé, il est nécessaire que nous nous déplacions
+                                    dans votre entreprise pour examiner la réparabilité de vos emballages plastiques.
+                                </p>
+                                <p class="card-text">
+                                    Afin de pérenniser notre prochaine collaboration,
+                                    les frais de déplacement de l'expertise, dans la métropole lilloise, vous sont offerts* .
+                                </p>
+                                <p class="card-text">
+                                    Nos devis et expertises sont également gratuits.
+                                </p>
+                            </div>
+                            <div class="card-footer">
+                                <p class="small">* <small>Sous condition de vente, payable dans le cas écheant suivant le barème kilométrique applicable aux automobiles</small></p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card bg-transparent border-0">
+                            <div class="card-body">
+                                <div id="errormessage">{{ form_errors(contact) }}</div>
+                                {{ form_start(contact, {'class' : 'contactForm'}) }}
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        {{ form_widget(contact.date) }}
+                                        <div class="input-group-append">
+                                            <div class="icon input-group-text"><span class="ion-ios-calendar"></span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">{{ form_widget(contact.entreprise) }}</div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">{{ form_widget(contact.nom) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.prenom) }}</div>
+                                </div>
+                                {#<div class="form-row">
+
+                                    <div class="form-group col-md-6">{{ form_widget(contact.siret) }}</div>
+                                </div>#}
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">{{ form_widget(contact.email) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.tel) }}</div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group col-md-6">{{ form_widget(contact.adresse) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.region) }}</div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="form-group col-md-4">{{ form_widget(contact.cp) }}</div>
+                                    <div class="form-group col-md-4">{{ form_widget(contact.ville) }}</div>
+                                    <div class="form-group col-md-4">{{ form_widget(contact.pays) }}</div>
+                                </div>
+                                <div class="form-group">{{ form_widget(contact.note) }}</div>
+
+                                <div class="d-flex justify-content-center mb-3">
+                                    <button type="submit" class="btn btn-success cta-btn">Prenez rendez-vous</button>
+                                </div>
+                                {{ form_end(contact) }}
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row">
+
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset('home/lib/jquery/jquery.datetimepicker.full.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/places.js@1.17.1"></script>
+    <script>
+        // Place.js
+        (function() {
+            var placesAutocomplete = places({
+                appId: 'plXJXCF7V3O7',
+                apiKey: 'b4f7fea584f1cccbefdd06ffffaa616a',
+                container: document.querySelector('#form_adresse'),
+                templates: {
+                    value: function(suggestion) {
+                        return suggestion.name;
+                    }
+                }
+            }).configure({
+                type: 'address',
+                language: 'fr',
+            });
+            placesAutocomplete.on('change', function resultSelected(e) {
+                document.querySelector('#form_region').value = e.suggestion.administrative || '';
+                document.querySelector('#form_cp').value = e.suggestion.city || '';
+                document.querySelector('#form_ville').value = e.suggestion.postcode || '';
+                document.querySelector('#form_pays').value = e.suggestion.country || '';
+            });
+        })();
+    </script>
+{% endblock %}
+
+

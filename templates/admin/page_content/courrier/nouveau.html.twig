@@ -1,0 +1,30 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col">
+            <div class="card">
+                <div class="card-header h4 bg-white border-white text-uppercase text-center">
+                    Formulaire de nouveau mail
+                </div>
+                <div class="card bg-transparent border-0">
+                    <div class="card-body">
+                        <div id="errormessage">{{ form_errors(newmail) }}</div>
+                        {{ form_start(newmail, {'class' : 'contactForm'}) }}
+                        <div class="form-group">{{ form_widget(newmail.objet) }}</div>
+                        <div class="form-row">
+                            <div class="form-group col-md-5">{{ form_widget(newmail.entreprise) }}</div>
+                            <div class="form-group col-md-7">{{ form_widget(newmail.destinataire) }}</div>
+                        </div>
+                        <div class="form-group">{{ form_widget(newmail.contenu) }}</div>
+
+                        <div class="d-flex justify-content-center mb-3">
+                            <button type="submit" class="btn btn-success cta-btn">Envoyer le mail</button>
+                        </div>
+                        {{ form_end(newmail) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

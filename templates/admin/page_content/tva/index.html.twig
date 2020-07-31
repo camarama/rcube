@@ -1,0 +1,39 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Tva index{% endblock %}
+
+{% block page_content %}
+    <h1>Tva index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Multiplicate</th>
+                <th>Nom</th>
+                <th>Valeur</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tva in tvas %}
+            <tr>
+                <td>{{ tva.id }}</td>
+                <td>{{ tva.multiplicate }}</td>
+                <td>{{ tva.nom }}</td>
+                <td>{{ tva.valeur }}</td>
+                <td>
+                    <a href="{{ path('admin_tva_show', {'id': tva.id}) }}">show</a>
+                    <a href="{{ path('admin_tva_edit', {'id': tva.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_tva_new') }}">Create new</a>
+{% endblock %}

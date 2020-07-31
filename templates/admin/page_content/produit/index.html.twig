@@ -1,0 +1,41 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Produit index{% endblock %}
+
+{% block page_content %}
+    <h1>Produit index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Ref</th>
+                <th>Nom</th>
+                <th>Catégorie</th>
+                <th>Image</th>
+                <th>Description</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for produit in produits %}
+            <tr>
+                <td>{{ produit.reference }}</td>
+                <td>{{ produit.nom }}</td>
+                <td>{{ produit.categorie.nom }}</td>
+                <td><img src="{{ asset(produit.photoPath)|imagine_filter('admin_produit') }}" alt="{{ produit.nom }}"></td>
+                <td>{{ produit.description|raw }}</td>
+                <td>
+                    <a href="{{ path('admin_produit_show', {'id': produit.id}) }}">show</a>
+                    <a href="{{ path('admin_produit_edit', {'id': produit.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_produit_new') }}">Create new</a>
+{% endblock %}

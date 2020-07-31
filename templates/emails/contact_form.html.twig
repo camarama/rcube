@@ -1,0 +1,6 @@
+{% extends 'email_base.html.twig' %}
+
+{% block content %}
+    <p>Expediteur : {{ contact.nom }} </p>
+    <p>{{ contact.message }}</p>
+{% endblock %}

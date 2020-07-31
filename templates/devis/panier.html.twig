@@ -1,0 +1,271 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panier{% endblock %}
+
+{% set totalHT = 0 %}
+{% set totalTTC = 0 %}
+{% set heure_travail = 0 %}
+{% set tva = {} %}
+{% set reftva = {} %}
+{% for materiel in fournitures %}
+    {% for item in materiel %}
+        {% set reftva = reftva|merge({(item.tva.nom) : 0}) %}
+    {% endfor %}
+{% endfor %}
+
+{% block body %}
+    <section id="portfolio" class="section-bg mt-5">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <h3 class="">Récapitulatif du panier</h3>
+            </div>
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <div class="table-responsive-md">
+                <table class="table">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">N°</th>
+                        <th scope="col">Produit</th>
+                        <th scope="col">Couleur</th>
+                        <th scope="col">Quantité</th>
+                        <th scope="col">Mesure</th>
+                        <th scope="col">Prix Unitaire</th>
+                        <th scope="col">Total HT</th>
+                        <th scope="col">TVA</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    {% for produit in produits %}
+{#                        {{ dump(prestation[produit.id][produit.nom]) }}#}
+                        <tr class="bg-light">
+                            <th scope="row"><strong>{{ loop.index }}</strong></th>
+                            <td><strong>{{ produit.nom }}</strong></td>
+                            <td><strong>{{ prestation[produit.id][produit.nom]['couleur'] }}</strong></td>
+                            <td colspan="4"><strong>{{ prestation[produit.id][produit.nom]['quantite'] }}</strong></td>
+                            <td class="d-flex justify-content-around">
+                                <strong>
+                                    <a href="{{ path('admin_choix_produit', {'id': produit.id}) }}"
+                                       class="btn btn-warning">
+                                        <i class="ion ion-android-create"></i>
+                                    </a>
+                                    <a href="{{ path('admin_supprimer', {'id': produit.id}) }}" class="btn btn-danger">
+                                        <i class="ion ion-trash-a"></i>
+                                    </a>
+                                </strong>
+                            </td>
+                        </tr>
+
+                            {% for materiel in fournitures[produit.nom] %}
+{#                                {{ dump(produit.categorie) }}#}
+                                {% if materiel.designation != "main d'oeuvre" and materiel.designation != "nettoyage" %}
+                                    {% set quantite = prestation[produit.id]['materiels'][materiel.designation]  %}
+                                {% else %}
+                                    {% if produit.categorie.id != 1 %}
+                                        {% set quantite = (prestation[produit.id]['materiels'][materiel.designation] / 2)|round(0, 'ceil') %}
+                                    {% else %}
+                                        {% set quantite = (prestation[produit.id]['materiels'][materiel.designation] / 30)|round(0, 'ceil') %}
+                                    {% endif %}
+                                {% endif %}
+    {#                            {{ dump(quantite) }}#}
+                                <tr class="text-white bg-secondary">
+                                    <th scope="row"></th>
+                                    <td colspan="2">
+                                        <small><em>- {{ materiel.designation }}</em></small>
+                                    </td>
+                                    <td>
+
+                                        <small><em>{{ quantite }}</em></small>
+                                    </td>
+                                    <td>
+                                        <small><em>{{ materiel.mesure }}</em></small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <em>
+                                                {% if materiel.designation != "main d'oeuvre" and materiel.designation != "nettoyage" %}
+                                                    {{ materiel.prixUnitaire + (materiel.prixUnitaire * 0.5) }} €
+                                                {% else %}
+                                                    {{ materiel.prixUnitaire }} €
+                                                {% endif %}
+                                            </em>
+                                        </small>
+
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <em>
+                                                {% if materiel.designation != "main d'oeuvre" and materiel.designation != "nettoyage" %}
+                                                    {{ quantite * (materiel.prixUnitaire + (materiel.prixUnitaire * 0.5)) }} €
+                                                {% else %}
+                                                    {{ quantite * materiel.prixUnitaire }} €
+                                                {% endif %}
+                                            </em>
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <small>
+                                            <em>
+{#                                                {{ dump(materiel.tva.multiplicate) }}#}
+                                                {% if materiel.designation != "main d'oeuvre" and materiel.designation != "nettoyage" %}
+                                                    {{ ((quantite * (materiel.prixUnitaire + (materiel.prixUnitaire * 0.5)) / materiel.tva.multiplicate) - (quantite * (materiel.prixUnitaire + (materiel.prixUnitaire * 0.5))))|round(2) }} €
+                                                {% else %}
+                                                    {{ (((quantite * materiel.prixUnitaire) / materiel.tva.multiplicate) - (quantite * materiel.prixUnitaire))|round(2) }} €
+                                                {% endif %}
+                                            </em>
+                                        </small>
+                                    </td>
+                                    {% if materiel.designation == "nettoyage" %}
+                                        <td class="text-center">
+                                           <a href="{{ path('admin_supprimer_nettoyage', {'id': produit.id}) }}" class="btn btn-danger">
+                                               <i class="ion ion-trash-a"></i>
+                                           </a>
+                                        </td>
+                                    {% endif %}
+                                    {% if materiel.designation != "main d'oeuvre" and materiel.designation != "nettoyage" %}
+                                        {% set reftva = reftva|merge({(materiel.tva.nom) : reftva[materiel.tva.nom] + (((quantite * (materiel.prixUnitaire + (materiel.prixUnitaire * 0.5))) / materiel.tva.multiplicate) - (quantite *(materiel.prixUnitaire + (materiel.prixUnitaire * 0.5))))|round(2)}) %}
+                                        {% set totalHT = totalHT + (((materiel.prixUnitaire + (materiel.prixUnitaire * 0.5)) * quantite)|round(2)) %}
+                                        {% set totalTTC = totalTTC + (((materiel.prixUnitaire + (materiel.prixUnitaire * 0.5)) * quantite) / materiel.tva.multiplicate)|round(2) %}
+                                    {% else %}
+                                        {% set reftva = reftva|merge({(materiel.tva.nom) : reftva[materiel.tva.nom] + (((quantite * materiel.prixUnitaire) / materiel.tva.multiplicate) - (quantite * materiel.prixUnitaire))|round(2)}) %}
+                                        {% set totalHT = totalHT + ((materiel.prixUnitaire * quantite)|round(2)) %}
+                                        {% set totalTTC = totalTTC + ((materiel.prixUnitaire * quantite) / materiel.tva.multiplicate)|round(2) %}
+                                    {% endif %}
+                                </tr>
+                            {% endfor %}
+                       {# <tr class="text-white bg-secondary">
+                            <th scope="row"></th>
+                            <td colspan="1"></td>
+                            {% if prestation[produit.id][produit.nom]['nettoyage'] != 'non' %}
+                                <td>
+                                    <small><em>- nettoyage</em></small>
+                                </td>
+                                <td colspan="1"></td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            <input id="qte_nettoyage" type="number" style="width: 50px">
+                                        </em>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            {{ smic }} €
+                                        </em>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            <input id="totalHT" type="number" value="" style="width: 80px; background: transparent; border: none; color: white" readonly>
+                                        </em>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            <input id="tva" type="number" value="" style="width: 80px; background: transparent; border: none; color: white" readonly>
+                                        </em>
+                                    </small>
+                                </td>
+                                <td></td>
+                            {% endif %}
+                        </tr>
+                        <tr class="text-white bg-secondary">
+                            <th scope="row"></th>
+                            <td colspan="1"></td>
+#}{#                            {% if prestation[produit.id][produit.nom]['nettoyage'] != 'non' %}#}{#
+                                <td>
+                                    <small><em>- transport</em></small>
+                                </td>
+                                <td colspan="1"></td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            <input id="km" type="number" style="width: 50px">
+                                        </em>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            {{ montant_km }} €
+                                        </em>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            <input id="montant_HT" type="number" value="" style="width: 80px; background: transparent; border: none; color: white" readonly>
+                                        </em>
+                                    </small>
+                                </td>
+                                <td>
+                                    <small>
+                                        <em>
+                                            <input id="montant_tva" type="number" value="" style="width: 80px; background: transparent; border: none; color: white" readonly>
+                                        </em>
+                                    </small>
+                                </td>
+                                <td></td>
+#}{#                            {% endif %}#}{#
+                        </tr>#}
+                    {% endfor %}
+
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between">
+                <div class="col-md-8">
+                    <form action="{{ path('admin_panier') }}" method="post">
+                        <div class="form-group">
+                            <label class="font-weight-bold" for="client">Pour quel client est ce devis ?</label>
+                            <select class="form-control" name="client">
+                                <option class="" selected>Choisir un client dans la liste</option>
+                                {% for client in clients %}
+                                    <option value="{{ client.id }}">{{ client.designation }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('admin_presentation') }}" class="btn btn-info">Ajouter un produit</a>
+                            <button type="submit" class="btn btn-success">Valider et Continuer</button>
+                        </div>
+                    </form>
+                </div>
+
+                <dl class="">
+                    <div class="d-flex mb-2 text-right">
+                        {#{% if nettoyageHT %} {{ dump(nettoyageHT) }} {% endif %}#}
+                        <dt class="mr-auto pr-3">Total HT :</dt>
+                        <dd id="HT" data-value="{{ totalHT }}" class="ml-auto"><strong>{{ totalHT }} €</strong></dd>
+                    </div>
+
+                    {% for key, value in reftva %}
+                        <div class="d-flex mb-2 text-right">
+                            <dt class="mr-auto pr-3 text-capitalize">{{ key }} :</dt>
+{#                            {{ dump(key) }}#}
+                            {% if key == 'tva 20%' %}
+                                <dd id="tva20" data-value="{{ value }}" class="ml-auto"><strong>{{ value }} €</strong></dd>
+                                {% else %}
+                                    <dd class="ml-auto"><strong>{{ value }} €</strong></dd>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    <div class="d-flex mb-2 text-right">
+                        <dt class="mr-auto pr-3">Total TTC :</dt>
+                        <dd class="ml-auto"><strong>{{ totalTTC }} €</strong></dd>
+                    </div>
+                </dl>
+            </div>
+        </div>
+    </section>
+{% endblock %}

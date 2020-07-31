@@ -1,0 +1,23 @@
+twig:
+    default_path: '%kernel.project_dir%/templates'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
+    exception_controller: null
+    globals:
+        entreprise_nom: Plastic R³
+        entreprise_email: mamedcra@gmail.com
+        entreprise_tel: +33 6 52 40 10 07
+        entreprise_adresse: 679 Avenue de la République
+        entreprise_cp: 59800
+        entreprise_ville: Lille
+        entreprise_pays: France
+        entreprise_siret: 404 833 048 00022
+        entreprise_tva: FRXX 99999999
+        entreprise_site: www.plasticrcube.fr
+        entreprise_banque: 30027
+        entreprise_code_banque: 17011
+        entreprise_compte: 00021173701
+        entreprise_iban: FR76 3002 7170 1100 0211 7370 115
+        entreprise_bic: CMCIFRPP
+
+

@@ -1,0 +1,39 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Client index{% endblock %}
+
+{% block page_content %}
+    <h1>Client index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Designation</th>
+                <th>Email</th>
+                <th>Siret</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for client in clients %}
+            <tr>
+                <td>{{ client.id }}</td>
+                <td>{{ client.designation }}</td>
+                <td>{{ client.email }}</td>
+                <td>{{ client.siret }}</td>
+                <td>
+                    <a href="{{ path('admin_client_show', {'id': client.id}) }}">show</a>
+                    <a href="{{ path('admin_client_edit', {'id': client.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_client_new') }}">Create new</a>
+{% endblock %}

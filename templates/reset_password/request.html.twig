@@ -1,0 +1,62 @@
+{% extends 'admin_base.html.twig' %}
+
+{% block title %}Renouvellement de mot de passe !{% endblock %}
+
+{% block body %}
+    <div class="main-wrapper">
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        {#
+        <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        #}
+        <!-- ============================================================== -->
+        <!-- Preloader - style you can find in spinners.css -->
+        <!-- ============================================================== -->
+        <!-- ============================================================== -->
+        <!-- Login box.scss -->
+        <!-- ============================================================== -->
+        <div class="auth-wrapper d-flex no-block justify-content-center align-items-center bg-dark">
+            <div class="auth-box bg-dark border-top border-secondary">
+                <div>
+                    {% for label, messages in app.flashes %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ label }} text-white" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endfor %}
+                    <div class="text-center">
+                        <span class="text-white">Entrez votre adresse mail et cliquez sur envoyer pour recevoir un mail de réinitialisation de mot de passe.</span>
+                    </div>
+                    <div class="row m-t-20">
+                        <!-- Form -->
+                        {{ form_start(requestForm, {'attr':{'class': 'col-12'}}) }}
+                        <!-- email -->
+                        <div class="input-group mt-4 mb-4">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text bg-warning text-white" id="basic-addon1"><i class="ti-email"></i></span>
+                            </div>
+                            {{ form_widget(requestForm.email) }}
+                        </div>
+                        <!-- pwd -->
+                        <div class="row mb-3 pb-3">
+                            <div class="col-12">
+                                <a class="btn btn-info" href="{{ path('app_login') }}">Retour à la connexion</a>
+                                <button class="btn btn-success float-right" type="submit" >Envoyer</button>
+                            </div>
+                        </div>
+                        <div class="row border-bottom border-secondary"></div>
+                        {{ form_end(requestForm) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

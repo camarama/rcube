@@ -1,0 +1,42 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Materiel{% endblock %}
+
+{% block page_content %}
+    <h1>Materiel</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ materiel.id }}</td>
+            </tr>
+            <tr>
+                <th>Designation</th>
+                <td>{{ materiel.designation }}</td>
+            </tr>
+            <tr>
+                <th>Mesure</th>
+                <td>{{ materiel.mesure }}</td>
+            </tr>
+            <tr>
+                <th>Reference</th>
+                <td>{{ materiel.reference }}</td>
+            </tr>
+            <tr>
+                <th>PrixUnitaire</th>
+                <td>{{ materiel.prixUnitaire }} €</td>
+            </tr>
+            <tr>
+                <th>Tva</th>
+                <td>{{ materiel.tva }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_materiel_index') }}">back to list</a>
+
+    <a href="{{ path('admin_materiel_edit', {'id': materiel.id}) }}">edit</a>
+
+    {{ include('admin/page_content/materiel/_delete_form.html.twig') }}
+{% endblock %}
