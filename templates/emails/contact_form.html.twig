@@ -1,6 +1,8 @@
 {% extends 'email_base.html.twig' %}
 
 {% block content %}
+    <p>Entreprise : {{ contact.entreprise }} </p>
     <p>Expediteur : {{ contact.nom }} </p>
+    <p>Adresse mail expediteur : {{ contact.email }}</p>
     <p>{{ contact.message }}</p>
 {% endblock %}

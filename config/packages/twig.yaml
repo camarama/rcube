@@ -4,15 +4,17 @@ twig:
     strict_variables: '%kernel.debug%'
     exception_controller: null
     globals:
-        entreprise_nom: Plastic R³
-        entreprise_email: mamedcra@gmail.com
-        entreprise_tel: +33 6 52 40 10 07
+        entreprise_nom: Plastic R Cube
+        entreprise_email: contact@plasticrcube.fr
+        entreprise_tel: +33 6 62 05 76 66
         entreprise_adresse: 679 Avenue de la République
         entreprise_cp: 59800
         entreprise_ville: Lille
         entreprise_pays: France
-        entreprise_siret: 404 833 048 00022
-        entreprise_tva: FRXX 99999999
+        entreprise_status: SARL au capital de 3000 €
+        entreprise_code_naf: 3319Z
+        entreprise_siret: 887 741 742 R.C.S. Lille Métropole
+        entreprise_tva: FR28 887 741 742
         entreprise_site: www.plasticrcube.fr
         entreprise_banque: 30027
         entreprise_code_banque: 17011

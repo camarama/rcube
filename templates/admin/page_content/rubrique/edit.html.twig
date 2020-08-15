@@ -1,0 +1,13 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Edit Rubrique{% endblock %}
+
+{% block page_content %}
+    <h1>Edit Rubrique</h1>
+
+    {{ include('admin/page_content/rubrique/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_journal_comptable_rubrique') }}">back to list</a>
+
+    {{ include('admin/page_content/rubrique/_delete_form.html.twig') }}
+{% endblock %}

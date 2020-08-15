@@ -1,25 +1,23 @@
 {% extends 'email_base.html.twig' %}
 
 {% block content %}
-    <div class="container">
-        <div class="card">
-            <div class="card-body">
-                <p>{{ contenu|raw }}</p>
-            </div>
+    <div class="card">
+        <div class="card-body">
+            <p>{{ contenu|raw }}</p>
         </div>
-        <div class="media">
-            <img class="align-self-center mr-3" src="{{ logo }}" alt="PLASTIC R³" height="64" width="64">
-            <div class="media-body">
-                <h5 class="mt-0">Mohamed CAMARA</h5>
-                <p class="mt-0">Gérant</p>
-                <p class="mb-0">
-                    {{ entreprise_adresse }}<br>
-                    {{ entreprise_cp }} {{ entreprise_ville }} - {{ entreprise_pays }}<br>
-                    {{ entreprise_tel }}<br>
-                    {{ entreprise_email }}<br>
-                    <a href="{{ path('app_accueil') }}">{{ entreprise_site }}</a>
-                </p>
-            </div>
+    </div>
+    <div class="media">
+        <img class="align-self-center mr-3" src="{{ logo }}" alt="PLASTIC R³" height="64" width="64">
+        <div class="media-body">
+            <h5 class="mt-0">Mohamed CAMARA</h5>
+            <p class="mt-0">Gérant</p>
+            <p class="mb-0">
+                {{ entreprise_adresse }}<br>
+                {{ entreprise_cp }} {{ entreprise_ville }} - {{ entreprise_pays }}<br>
+                {{ entreprise_tel }}<br>
+                {{ entreprise_email }}<br>
+                <a href="{{ path('app_accueil') }}">{{ entreprise_site }}</a>
+            </p>
         </div>
     </div>
 {% endblock %}

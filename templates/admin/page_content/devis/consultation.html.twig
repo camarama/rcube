@@ -4,11 +4,10 @@
 
 {% block page_content %}
     <div class="card">
-        <div class="card-title"><h1 class="d-flex justify-content-center mt-3">Consultation des devis</h1></div>
+        <div class="card-title"><h1 class="d-flex justify-content-center mt-3">Gestion des devis</h1></div>
         <div class="card-body">
-
             <div class="table-responsive">
-                <table class="table table-hover table-secondary">
+                <table class="table table-hover table-secondary" id="tableau">
                     <thead class="text-uppercase">
                     <tr>
                         <th class="font-weight-bold" scope="col">N°</th>
@@ -24,7 +23,7 @@
                     {% for commande in commandes %}
                         <tr>
                             <th class="font-weight-bold" scope="row">{{ loop.index }}</th>
-                            <td>{{ commande.date|date('d/m/Y') }}</td>
+                            <td>{{ commande.date|date('Y-m-d') }}</td>
                             <td>{{ commande.reference }}</td>
                             <td>{{ commande.client.designation }}</td>
                             <td>{{ commande.prestation.totalTTC|number_format(2, ', ', ' ', ' ') }} €</td>
@@ -34,10 +33,17 @@
                                    title="Consulter devis" class="text-danger" target="_blank">
                                     <i class="mdi mdi-file-pdf font-24"></i>
                                 </a>
-                                <a href="{{ path('admin_commande_facture', {'id' : commande.id}) }}"
-                                   title="Créer facture" class="text-success">
-                                    <i class="mdi mdi-receipt font-24"></i>
-                                </a>
+                                {% if not commande.facture %}
+                                    <a href="{{ path('admin_commande_new_facture', {'id' : commande.id}) }}"
+                                       title="Créer facture" class="text-success">
+                                        <i class="mdi mdi-receipt font-24"></i>
+                                    </a>
+                                    {% else %}
+                                        <a href="{{ path('admin_commande_factures') }}"
+                                            title="consultation des factures" class="text-info">
+                                            <i class="mdi mdi-book-open font-24"></i>
+                                        </a>
+                                {% endif %}
                             </td>
                         </tr>
                     {% endfor %}

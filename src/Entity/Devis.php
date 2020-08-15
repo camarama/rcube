@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\DevisRepository")
@@ -13,33 +15,44 @@ class Devis
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     *
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer")
+     *
      */
     private $reference;
 
     /**
      * @ORM\Column(type="datetime")
+     *
      */
     private $date;
 
     /**
      * @ORM\Column(type="array")
+     *
      */
     private $prestation = [];
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="devis", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Client", inversedBy="devis")
+     *
      */
     private $client;
 
     /**
      * @ORM\Column(type="boolean")
+     *
      */
     private $valider;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Facturation::class, mappedBy="devis", cascade={"persist", "remove"})
+     */
+    private $facture;
 
     public function getId(): ?int
     {
@@ -102,6 +115,24 @@ class Devis
     public function setValider(bool $valider): self
     {
         $this->valider = $valider;
+
+        return $this;
+    }
+
+    public function getFacture(): ?Facturation
+    {
+        return $this->facture;
+    }
+
+    public function setFacture(?Facturation $facture): self
+    {
+        $this->facture = $facture;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newDevis = null === $facture ? null : $this;
+        if ($facture->getDevis() !== $newDevis) {
+            $facture->setDevis($newDevis);
+        }
 
         return $this;
     }

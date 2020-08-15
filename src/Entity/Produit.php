@@ -97,7 +97,7 @@ class Produit
 
     public function getPhotoPath()
     {
-        return 'telechargements/images/'.$this->getPhoto();
+        return 'telechargements/'.$this->getPhoto();
     }
 
     public function getReference(): ?string

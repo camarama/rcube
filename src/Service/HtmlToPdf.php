@@ -33,8 +33,25 @@ class HtmlToPdf
 
     public function showPdf($devis)
     {
+//        dd($devis);
         $html = $this->twig->render('pdf/html_to_pdf.html.twig', ['commande' => $devis]);
         $header = $this->twig->render('pdf/pdf_components/header.html.twig');
+        $footer = $this->twig->render('pdf/pdf_components/footer.html.twig');
+
+        $pdf = $this->snappy->getOutputFromHtml($html, [
+            'header-html' => $header,
+            'footer-html' => $footer,
+        ]);
+
+        return $pdf;
+    }
+
+    public function showFacturePdf($facture)
+    {
+        $commande = $facture[0];
+
+        $html = $this->twig->render('pdf/facture.html.twig', ['commande' => $commande]);
+        $header = $this->twig->render('pdf/pdf_components/header_facture.html.twig');
         $footer = $this->twig->render('pdf/pdf_components/footer.html.twig');
 
         $pdf = $this->snappy->getOutputFromHtml($html, [

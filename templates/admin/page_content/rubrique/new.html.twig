@@ -1,0 +1,11 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}New Rubrique{% endblock %}
+
+{% block page_content %}
+    <h1>Create new Rubrique</h1>
+
+    {{ include('admin/page_content/rubrique/_form.html.twig') }}
+
+    <a href="{{ path('admin_journal_comptable_rubrique') }}">back to list</a>
+{% endblock %}

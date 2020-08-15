@@ -30,8 +30,7 @@
                     <div class="col-lg-4 col-md-6 portfolio-item filter-{{ produit.categorie.id }} wow fadeInUp" data-wow-delay="0.2s">
                         <div class="portfolio-wrap">
                             <figure>
-                                <img src="{{ produit.photoPath|imagine_filter('choix_produit') }}" class="img-fluid" alt="{{ produit.nom }}">
-{#                                <a href="img/portfolio/app1.jpg" data-lightbox="portfolio" data-title="App 1" class="link-preview" title="Preview"><i class="ion ion-eye"></i></a>#}
+                                <img src="{{ asset(produit.photoPath|imagine_filter('choix_produit')) }}" class="img-fluid" alt="{{ produit.nom }}">
                                 <a href="{{ path('admin_choix_produit', {'id': produit.id }) }}" class="link-details" title="Choisir"><i class="ion ion-android-open"></i></a>
                             </figure>
 

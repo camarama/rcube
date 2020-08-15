@@ -42,7 +42,7 @@ class ProduitController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             /**
-             * @var UploadedFile $imageUploded
+         * @var UploadedFile $imageTelecharger
              */
             $imageTelecharger = $form['image']->getData();
             if ($imageTelecharger)

@@ -21,41 +21,56 @@ class ContactType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Nom de votre entreprise*',
-                    'data-msg' => 'Minimum 4 Caractères'
-                ]
+                ],
+                'help' => '* Champ entreprise ne peut etre vide, min 2 caractères',
+                'help_attr' => [
+                    'class' => 'text-muted pl-2 font-italic'
+                ],
             ])
             ->add('nom', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Votre nom*',
-                    'data-msg' => 'Minimum 4 Caractères'
-                ]
+                ],
+                'help' => '* Champ nom ne peut etre vide, min 2 caractères',
+                'help_attr' => [
+                    'class' => 'text-muted pl-2 font-italic'
+                ],
             ])
             ->add('email', EmailType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Votre adresse mail*',
-                    'data-msg' => 'Veuillez taper une adresse mail valide'
-                ]
+                ],
+                'help' => '* Veuillez taper une adresse mail valide',
+                'help_attr' => [
+                    'class' => 'text-muted pl-2 font-italic'
+                ],
             ])
             ->add('message',TextareaType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Votre message*',
-                    'data-msg' => 'Veuillez taper votre demande',
                     'rows' => 5
-                ]
+                ],
+                'help' => '* Champ message doit contenir au moins 10 caractères',
+                'help_attr' => [
+                    'class' => 'text-muted pl-2 font-italic'
+                ],
             ])
             ->add('objet', TextType::class, [
                 'label' => false,
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Votre objet*',
-                    'data-msg' => 'Minimum 4 Caractères',
-                ]
+                ],
+                'help' => '* Champ objet ne peut être vide, min 2 caractères',
+                'help_attr' => [
+                    'class' => 'text-muted pl-2 font-italic'
+                ],
             ])
         ;
     }

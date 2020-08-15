@@ -61,15 +61,14 @@
                                     <div class="form-group col-md-6">{{ form_widget(contact.email) }}</div>
                                     <div class="form-group col-md-6">{{ form_widget(contact.tel) }}</div>
                                 </div>
-
+                                <div class="form-group">{{ form_widget(contact.adresse) }}</div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-6">{{ form_widget(contact.adresse) }}</div>
-                                    <div class="form-group col-md-6">{{ form_widget(contact.region) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.cp) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.ville) }}</div>
                                 </div>
                                 <div class="form-row">
-                                    <div class="form-group col-md-4">{{ form_widget(contact.cp) }}</div>
-                                    <div class="form-group col-md-4">{{ form_widget(contact.ville) }}</div>
-                                    <div class="form-group col-md-4">{{ form_widget(contact.pays) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.region) }}</div>
+                                    <div class="form-group col-md-6">{{ form_widget(contact.pays) }}</div>
                                 </div>
                                 <div class="form-group">{{ form_widget(contact.note) }}</div>
 

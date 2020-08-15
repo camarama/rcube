@@ -1,0 +1,30 @@
+{% extends "email_base.html.twig" %}
+
+{% block content %}
+    <div class="card mb-3">
+        <img src="" alt="" class="card-img-top">
+        <div class="card-body">
+            <h5>Cher client {{ devis.devis.client.designation }}</h5>
+            <p class="text-justify">
+                Nous vous prions de trouver ci-joint la facture
+                pour la réparation de vos emballages plastiques industriels et commerciaux.
+            </p>
+            {#<p class="text-justify">
+                Nous attirons votre attention sur l'écheance de cette facture qui est valable jusqu'au {{ devis.date|date_modify("+1 month")|date('d/m/Y') }}.
+            </p>#}
+            <p class="text-justify">
+                Nous vous remercions vivement de nous avoir fait confiance et restons à votre disposition.
+            </p>
+            <p class="text-justify">
+                Vous en souhaitant bonne réception, nous vous prions de croire, Madame, Monsieur, en l'assurance de nos
+                salutations distinguées.
+            </p>
+            <p class="text-justify">
+                Cordialement,
+            </p>
+            <p class="text-justify">
+                L'équipe PLASTIC R³
+            </p>
+        </div>
+    </div>
+{% endblock %}

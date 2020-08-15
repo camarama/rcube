@@ -7,11 +7,11 @@ use App\Repository\DevisRepository;
 use App\Service\FactureGenerator;
 use App\Service\MailerGenerator;
 use App\Service\ReferenceGenerator;
+use App\Service\StoreInDataBase;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,15 +37,20 @@ class CommandeController extends AbstractController
      * @var MailerGenerator
      */
     private $mailer;
+    /**
+     * @var StoreInDataBase
+     */
+    private $storeInDataBase;
 
     /**
      * CommandeController constructor.
      */
-    public function __construct(FactureGenerator $factureGenerator, ReferenceGenerator $referenceGenerator, MailerGenerator $mailer)
+    public function __construct(FactureGenerator $factureGenerator, ReferenceGenerator $referenceGenerator, MailerGenerator $mailer, StoreInDataBase $storeInDataBase)
     {
         $this->factureGenerator = $factureGenerator;
         $this->referenceGenerator = $referenceGenerator;
         $this->mailer = $mailer;
+        $this->storeInDataBase = $storeInDataBase;
     }
 
     public function setAdresseOnSession($request)
@@ -93,72 +98,43 @@ class CommandeController extends AbstractController
         /* Appel du service pour enregister toute la commande dans la session */
         $this->factureGenerator->facture($session);
 
+        // Appel du service pour enregistrer la commande dans la base de données
+        $this->storeInDataBase->prepareCommande();
+
+        $devis = $session->get('devis');
+
 
         return $this->render('devis/commande.html.twig', [
-            'commande' => $session->get('prestation')
+            'commande' => $session->get('prestation'),
+            'devis' => $devis
         ]);
-    }
-
-    /**
-     * @param $session
-     * @param $manager
-     * @param $devisRepo
-     * @return Response
-     * @throws \Exception
-     *
-     * Service qui enregistre dans la bdd la commande si elle n'existe pas déjà...
-     */
-    public function prepareCommande($session, $manager, $devisRepo)
-    {
-        $prestation = $session->get('prestation');
-        $client = $prestation['client'];
-//        dd($session);
-        if (!$session->has('devis'))
-            $devis = new Devis();
-        else
-            $devis = $devisRepo->find($session->get('devis'));
-
-//        dd($prestation['devis']);
-            $devis->setClient($client);
-            $devis->setDate(new \DateTime());
-            $devis->setValider(0);
-            $devis->setReference(0);
-            $devis->setPrestation($prestation['devis']);
-
-        if (!$session->has('devis'))
-        {
-            $manager->persist($devis);
-            $session->set('devis', $devis);
-        }
-
-        $manager->flush();
-
-        return new Response($devis->getId());
     }
 
     /**
      * @param Session $session
      * @param EntityManagerInterface $manager
      * @param DevisRepository $devisRepo
+     * @param Devis $devis
      * @throws \Exception
-     * @Route("/validation", name="validation")
+     * @Route("/validation/{id}", name="validation")
      */
-    public function validationCommande(Session $session, EntityManagerInterface $manager, DevisRepository $devisRepo)
+    public function validationCommande($id, Session $session, EntityManagerInterface $manager, DevisRepository $devisRepo)
     {
-        $prepareCommande = $this->prepareCommande($session, $manager, $devisRepo);
-        $devis = $devisRepo->find($prepareCommande->getContent());
+        // C'est la que ca coince ???
+        $devis = $devisRepo->find($id);
 
         if (!$devis || $devis->getValider() == 1)
             throw $this->createNotFoundException("La commande n'existe pas !!!");
 
         $devis->setValider(1);
+
         /* Appel du service pour générer la reference du devis pour la comptabilité */
         $devis->setReference($this->referenceGenerator->newReference());
 
         $manager->flush();
 
         /* Appel du service d'envoi de mail */
-        $this->mailer->sendContract($devis);
+//        $this->mailer->sendContract($devis);
 
 //        dd($mail);
         $session->remove('prestation');
@@ -167,7 +143,7 @@ class CommandeController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Votre commande a été valider avec succès !'
+            'Votre commande a été valider avec succès et le devis est envoyé au client.'
         );
 //        dd($session);
         return $this->redirectToRoute('admin_accueil');

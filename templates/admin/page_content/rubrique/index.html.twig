@@ -1,0 +1,35 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}Journal comptable{% endblock %}
+
+{% block page_content %}
+    <h1>Rubrique index</h1>
+
+    <table class="table" id="tableau">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rubrique in rubriques %}
+            <tr>
+                <td>{{ rubrique.id }}</td>
+                <td>{{ rubrique.nom }}</td>
+                <td>
+                    <a href="{{ path('admin_journal_comptable_rubrique_show', {'id': rubrique.id}) }}">show</a>
+                    <a href="{{ path('admin_journal_comptable_rubrique_edit', {'id': rubrique.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_journal_comptable_rubrique_new') }}">Create new</a>
+{% endblock %}

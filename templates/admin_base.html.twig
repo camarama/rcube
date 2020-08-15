@@ -16,6 +16,9 @@
             <link href="{{ asset('admin/assets/libs/flot/css/float-chart.css') }}" rel="stylesheet">
             <!-- Custom CSS -->
             <link href="{{ asset('admin/dist/css/style.min.css') }}" rel="stylesheet">
+            <!-- DataTable -->
+            {#    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.css">#}
+            <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
             <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
             <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
             <!--[if lt IE 9]>
@@ -63,7 +66,41 @@
             <script src="{{ asset('admin/assets/libs/flot/jquery.flot.crosshair.js') }}"></script>
             <script src="{{ asset('admin/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js') }}"></script>
             <script src="{{ asset('admin/dist/js/pages/chart/chart-page-init.js') }}"></script>
-
+            <!-- DataTable -->
+            <script type="text/javascript" charset="UTF-8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+            {#    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.js"></script>#}
+            <script type="text/javascript" charset="UTF-8" src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+            <script>
+                /* DataTable */
+                $(document).ready( function () {
+                    $('#tableau').DataTable({
+                        language: {
+                            processing:     "Traitement en cours...",
+                            search:         "Rechercher&nbsp;:",
+                            lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                            info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                            infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                            infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                            infoPostFix:    "",
+                            loadingRecords: "Chargement en cours...",
+                            zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                            emptyTable:     "Aucune donnée disponible dans le tableau",
+                            paginate: {
+                                first:      "Premier",
+                                previous:   "Pr&eacute;c&eacute;dent",
+                                next:       "Suivant",
+                                last:       "Dernier"
+                            },
+                            aria: {
+                                sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                                sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                            },
+                            decimal: ",",
+                            thousands: " "
+                        }
+                    });
+                } );
+            </script>
         {% endblock %}
     </body>
 </html>

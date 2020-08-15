@@ -38,6 +38,7 @@ class DevisController extends AbstractController
         /*$session->clear();
         die();*/
         $session->getFlashBag()->clear();
+//        dd($session);
 
         return $this->render('devis/presentation.html.twig', [
             'categories' => $categorieRepo->findAll(),
@@ -78,6 +79,7 @@ class DevisController extends AbstractController
         $produit = $produitRepo->find($id);
         $main_oeuvre = $materielRepo->findOneBy(['designation' => "main d'oeuvre"]);
         $nettoyage = $materielRepo->findOneBy(['designation' => "nettoyage"]);
+        $transport = $materielRepo->findOneBy(['designation' => "transport"]);
 
         if (array_key_exists($id, $prestation)) {
             if ($request->request->get('qte') != null && $request->request->get('couleur') != null) {
@@ -88,6 +90,7 @@ class DevisController extends AbstractController
                     if ($value != null) {
                         $prestation[$id]['materiels'][$main_oeuvre->getDesignation()] = $request->request->get('qte');
                         $prestation[$id]['materiels'][$nettoyage->getDesignation()] = $request->request->get('qte');
+                        $prestation[$id]['materiels'][$transport->getDesignation()] = $request->request->get('qte');
                         $prestation[$id]['materiels'][$key] = $value;
                     }
                 }
@@ -105,6 +108,7 @@ class DevisController extends AbstractController
                     if ($value != null) {
                         $prestation[$id]['materiels'][$main_oeuvre->getDesignation()] = $request->request->get('qte');
                         $prestation[$id]['materiels'][$nettoyage->getDesignation()] = $request->request->get('qte');
+                        $prestation[$id]['materiels'][$transport->getDesignation()] = $request->request->get('qte');
                         $prestation[$id]['materiels'][$key] = $value;
                     }
                 }

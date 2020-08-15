@@ -1,50 +1,34 @@
 {% extends "email_base.html.twig" %}
 
 {% block content %}
-    <div class="container">
-        <div class="card mb-3">
-            <img src="" alt="" class="card-img-top">
-            <div class="card-body">
-                <h5>Cher client {{ devis.client.designation }}</h5>
-                <p class="text-justify">
-                    Suite à votre demande de devis, nous vous prions de trouver ci-joint notre proposition de tarif
-                    pour la réparation de vos emballages plastiques industriels et commerciaux.
-                    <br>Cette offre annule et remplace toute proposition antérieure.
-                </p>
-                <p class="text-justify">
-                    Nous attirons votre attention sur le fait que ce devis est valable jusqu'au {{ devis.date|date_modify("+1 month")|date('d/m/Y') }}.
-                </p>
-                <p class="text-justify">
-                    Nous vous remercions vivement de nous avoir consultés et restons à votre disposition pour répondre à toute question
-                    concernant ce devis.
-                </p>
-                <p class="text-justify">
-                    Vous en souhaitant bonne réception, nous vous prions de croire, Madame, Monsieur, en l'assurance de nos salutations distinguées.
-                </p>
-                <p class="text-justify">
-                    Cordialement,
-                </p>
-                <p class="text-justify">
-                    Mohamed Camara
-                    <br>Directeur
-                </p>
-            </div>
-            <div class="card-footer">
-                <ul class="list-inline">
-                    <li class="list-inline-item">
-                        <img src="{{ logo }}" height="80" width="80" alt="PLASTIC R³">
-                    </li>
-                    <li class="list-inline-item">
-                        <p>
-                            {{ entreprise_adresse }}<br>
-                            {{ entreprise_cp }} {{ entreprise_ville }} - {{ entreprise_pays }}<br>
-                            {{ entreprise_tel }}<br>
-                            {{ entreprise_email }}<br>
-                            <a href="{{ path('app_accueil') }}">{{ entreprise_site }}</a>
-                        </p>
-                    </li>
-                </ul>
-            </div>
+    <div class="card mb-3">
+        <img src="" alt="" class="card-img-top">
+        <div class="card-body">
+            <h5>Cher client {{ devis.client.designation }}</h5>
+            <p class="text-justify">
+                Suite à votre demande de devis, nous vous prions de trouver ci-joint notre proposition de tarif
+                pour la réparation de vos emballages plastiques industriels et commerciaux.
+                <br>Cette offre annule et remplace toute proposition antérieure.
+            </p>
+            <p class="text-justify">
+                Nous attirons votre attention sur le fait que ce devis est valable
+                jusqu'au {{ devis.date|date_modify("+1 month")|date('d/m/Y') }}.
+            </p>
+            <p class="text-justify">
+                Nous vous remercions vivement de nous avoir consultés et restons à votre disposition pour répondre à
+                toute question
+                concernant ce devis.
+            </p>
+            <p class="text-justify">
+                Vous en souhaitant bonne réception, nous vous prions de croire, Madame, Monsieur, en l'assurance de nos
+                salutations distinguées.
+            </p>
+            <p class="text-justify">
+                Cordialement,
+            </p>
+            <p class="text-justify">
+                L'équipe PLASTIC R³
+            </p>
         </div>
     </div>
 {% endblock %}

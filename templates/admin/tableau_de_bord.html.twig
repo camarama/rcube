@@ -62,7 +62,7 @@
                             <div class="box bg-success text-center">
                                 <a href="{{ path('admin_commande_consultation') }}">
                                     <h1 class="font-light text-white"><i class="mdi mdi-chart-areaspline"></i></h1>
-                                    <h6 class="text-white">Gestion Devis</h6>
+                                    <h6 class="text-white">Gestion Devis et Factures</h6>
                                 </a>
                             </div>
                         </div>
@@ -105,9 +105,9 @@
                     <div class="col-md-6 col-lg-4 col-xlg-3">
                         <div class="card card-hover">
                             <div class="box bg-danger text-center">
-                                <a href="{{ path('admin_client_index') }}">
+                                <a href="{{ path('admin_journal_comptable_element') }}">
                                     <h1 class="font-light text-white"><i class="mdi mdi-receipt"></i></h1>
-                                    <h6 class="text-white">Gestion Clients</h6>
+                                    <h6 class="text-white">Gestion Journal Comptable</h6>
                                 </a>
                             </div>
                         </div>
@@ -116,9 +116,9 @@
                     <div class="col-md-6 col-lg-2 col-xlg-3">
                         <div class="card card-hover">
                             <div class="box bg-info text-center">
-                                <a href="{{ path('admin_tva_index') }}">
+                                <a href="{{ path('admin_client_index') }}">
                                     <h1 class="font-light text-white"><i class="mdi mdi-relative-scale"></i></h1>
-                                    <h6 class="text-white">Gestion TVA</h6>
+                                    <h6 class="text-white">Gestion Clients</h6>
                                 </a>
                             </div>
                         </div>
@@ -149,8 +149,10 @@
                     <div class="col-md-6 col-lg-2 col-xlg-3">
                         <div class="card card-hover">
                             <div class="box bg-warning text-center">
-                                <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
-                                <h6 class="text-white">Errors</h6>
+                                <a href="{{ path('admin_tva_index') }}">
+                                    <h1 class="font-light text-white"><i class="mdi mdi-alert"></i></h1>
+                                    <h6 class="text-white">Gestion TVA</h6>
+                                </a>
                             </div>
                         </div>
                     </div>

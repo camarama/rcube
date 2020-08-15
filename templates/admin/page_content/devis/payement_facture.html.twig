@@ -1,0 +1,55 @@
+{% extends 'admin/tableau_de_bord.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block page_content %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <h3 class="card-header bg-dark text-white text-center">Facturation</h3>
+                <div class="card-body">
+                    {{ form_start(payement) }}
+                    <div class="row mb-3 align-items-center">
+                        <div class="col-lg-4 col-md-12 text-right">
+                            <span>Paiement client</span>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="input-group">
+{#                                <input type="text" class="form-control" placeholder="5 000" aria-label="Recipient 's username" aria-describedby="basic-addon2">#}
+                                {{ form_widget(payement.acompte) }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {#<div class="row mb-3 align-items-center">
+                        <div class="col-lg-4 col-md-12 text-right">
+                            <span>Solde</span>
+                        </div>
+                        <div class="col-lg-6 col-md-12">
+                            <div class="input-group">
+#}{#                                <input type="text" class="form-control" placeholder="10 000" aria-label="Recipient 's username" aria-describedby="basic-addon2">#}{#
+                                {{ form_widget(facture.solde) }}
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon2">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>#}
+
+                </div>
+                <div class="border-top">
+                    <div class="card-body d-flex justify-content-around">
+                        <a class="btn btn-info" href="{{ path('admin_commande_factures') }}">Consultation</a>
+                        <button type="submit" class="btn btn-success">Continuer</button>
+                    </div>
+                </div>
+                {{ form_end(payement) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -21,7 +21,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class HomeController
  * @package App\Controller
  *
- * @Route("/accueil", name="app_")
+ * @Route("/", name="app_")
  */
 class HomeController extends AbstractController
 {
@@ -44,10 +44,10 @@ class HomeController extends AbstractController
 
                 $this->addFlash(
                   'success',
-                    'Votre message a bien été envoyé !!!'
+                    'Merci pour votre message, nous y répondrons dans les plus brefs délais.'
                 );
 
-                return $this->redirectToRoute('app_accueil');
+                return $this->redirect($this->generateUrl('app_accueil').'#contact');
             }
         }
 
@@ -193,7 +193,8 @@ class HomeController extends AbstractController
 
                 $this->addFlash(
                     'success',
-                    'Votre Rendez_vous à été pris en compte avec succèss, Vous allez recevoir un mail de confirmation très prochainement !'
+                    'Votre Rendez_vous à été pris en compte, 
+                    vous recevrez une confirmation par email dans les minutes qui suivent !'
                 );
 
                 return $this->redirectToRoute('app_accueil');
