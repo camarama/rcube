@@ -35,7 +35,7 @@ class FactureGenerator
     {
         $prestation = $session->get('prestation');
 //        dd($session);
-        $generator = random_bytes(20);
+//        $generator = random_bytes(10);
         $adresse = $prestation['adresse'];
         $articles = [];
         $totalHT = 0;
@@ -114,7 +114,7 @@ class FactureGenerator
 
         $articles['totalHT'] = round($totalHT, 2);
         $articles['totalTTC'] = round($totalHT + $totalTVA, 2);
-        $articles['token'] = $generator;
+//        $articles['token'] = $generator;
 
         $prestation['devis'] = $articles;
 //        dd($articles);

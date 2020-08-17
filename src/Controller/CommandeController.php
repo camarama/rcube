@@ -112,6 +112,31 @@ class CommandeController extends AbstractController
 
     /**
      * @param Session $session
+     * @param DevisRepository $devisRepo
+     * @param $id
+     * @Route("/attente_validation/{id}", name="attente_validation")
+     */
+    public function attenteValidationCommande($id, Session $session, DevisRepository $devisRepo)
+    {
+        $devis = $devisRepo->find($id);
+
+        /* Appel du service d'envoi de mail */
+        $this->mailer->sendContract($devis);
+
+        $session->remove('prestation');
+        $session->remove('devis');
+        $session->getFlashBag()->clear();
+
+        $this->addFlash(
+            'success',
+            'Votre commande est en attente de validation, le devis est envoyé au client !'
+        );
+//        dd($session);
+        return $this->redirectToRoute('admin_accueil');
+    }
+
+    /**
+     * @param Session $session
      * @param EntityManagerInterface $manager
      * @param DevisRepository $devisRepo
      * @param Devis $devis
@@ -120,7 +145,6 @@ class CommandeController extends AbstractController
      */
     public function validationCommande($id, Session $session, EntityManagerInterface $manager, DevisRepository $devisRepo)
     {
-        // C'est la que ca coince ???
         $devis = $devisRepo->find($id);
 
         if (!$devis || $devis->getValider() == 1)
@@ -134,9 +158,8 @@ class CommandeController extends AbstractController
         $manager->flush();
 
         /* Appel du service d'envoi de mail */
-//        $this->mailer->sendContract($devis);
+        $this->mailer->sendContract($devis);
 
-//        dd($mail);
         $session->remove('prestation');
         $session->remove('devis');
         $session->getFlashBag()->clear();
@@ -153,10 +176,8 @@ class CommandeController extends AbstractController
      * @Route("/suppression_commande", name="suppression_commande")
      * @IsGranted("ROLE_ADMIN")
      */
-    public function suppressionCommande(Session $session, EntityManagerInterface $manager, DevisRepository $devisRepo)
+    public function suppressionCommande(Session $session)
     {
-        $this->prepareCommande($session, $manager, $devisRepo);
-
         $session->clear();
         $session->getFlashBag()->clear();
 
@@ -164,7 +185,6 @@ class CommandeController extends AbstractController
             'danger',
             'Votre devis vient d\'etre supprimer avec succès !'
         );
-
 
         return $this->redirectToRoute('admin_accueil');
     }

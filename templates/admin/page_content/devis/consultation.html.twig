@@ -27,22 +27,29 @@
                             <td>{{ commande.reference }}</td>
                             <td>{{ commande.client.designation }}</td>
                             <td>{{ commande.prestation.totalTTC|number_format(2, ', ', ' ', ' ') }} €</td>
-                            <td>{% if "{{ commande.valider }}" == true %} Oui {% else %} Non {% endif %}</td>
+                            <td>{% if commande.valider == true %} Oui {% else %} Non {% endif %}</td>
                             <td>
                                 <a href="{{ path('admin_commande_details', {'id' : commande.id}) }}"
                                    title="Consulter devis" class="text-danger" target="_blank">
                                     <i class="mdi mdi-file-pdf font-24"></i>
                                 </a>
-                                {% if not commande.facture %}
-                                    <a href="{{ path('admin_commande_new_facture', {'id' : commande.id}) }}"
-                                       title="Créer facture" class="text-success">
-                                        <i class="mdi mdi-receipt font-24"></i>
-                                    </a>
-                                    {% else %}
-                                        <a href="{{ path('admin_commande_factures') }}"
-                                            title="consultation des factures" class="text-info">
-                                            <i class="mdi mdi-book-open font-24"></i>
+                                {% if commande.valider == true %}
+                                    {% if not commande.facture %}
+                                        <a href="{{ path('admin_commande_new_facture', {'id' : commande.id}) }}"
+                                           title="Créer facture" class="text-success">
+                                            <i class="mdi mdi-receipt font-24"></i>
                                         </a>
+                                        {% else %}
+                                            <a href="{{ path('admin_commande_factures') }}"
+                                                title="consultation des factures" class="text-info">
+                                                <i class="mdi mdi-book-open font-24"></i>
+                                            </a>
+                                    {% endif %}
+                                {% else %}
+                                    <a href="{{ path('admin_validation', {'id' : commande.id}) }}"
+                                       title="Validation du devis" class="text-primary" target="_blank">
+                                        <i class="mdi mdi-inbox font-24"></i>
+                                    </a>
                                 {% endif %}
                             </td>
                         </tr>

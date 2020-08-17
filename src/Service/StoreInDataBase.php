@@ -30,22 +30,16 @@ class StoreInDataBase
      * @var DevisRepository
      */
     private $devisRepo;
-    /**
-     * @var SerializerInterface
-     */
-    private $serializer;
-
 
     /**
      * StoreInDataBase constructor.
      */
-    public function __construct(SerializerInterface $serializer, SessionInterface $session, EntityManagerInterface $manager, ClientRepository $clientRepo, DevisRepository $devisRepo)
+    public function __construct(SessionInterface $session, EntityManagerInterface $manager, ClientRepository $clientRepo, DevisRepository $devisRepo)
     {
         $this->session = $session;
         $this->manager = $manager;
         $this->clientRepo = $clientRepo;
         $this->devisRepo = $devisRepo;
-        $this->serializer = $serializer;
     }
 
     public function prepareCommande()
@@ -74,9 +68,7 @@ class StoreInDataBase
         }
 
         $this->manager->flush();
-        /*
-        $response = new Response($devis);
-        $response->headers->set('content-Type', 'application/json')*/
+
         return new Response($devis->getId());
     }
 }

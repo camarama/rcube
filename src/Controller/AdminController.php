@@ -31,9 +31,15 @@ class AdminController extends AbstractController
     public function remise_zero_session(Session $session)
     {
         if ($session->has('prestation'))
+        {
             $session->remove('prestation');
+            $this->addFlash('success', 'La prestation à été enlevé de la session !');
+        }
         elseif ($session->has('devis'))
+        {
             $session->remove('devis');
+            $this->addFlash('success', 'Le devis à été enlevé de la session !');
+        }
         else
             $this->addFlash(
                 'success',

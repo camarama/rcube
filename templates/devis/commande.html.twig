@@ -103,6 +103,7 @@
 
 {#                    <div class="d-flex justify-content-between">#}
                         <a href="{{ path('admin_suppression_commande') }}" class="btn btn-danger mr-auto mb-4">Annuler le devis</a>
+                        <a href="{{ path('admin_attente_validation', {'id' : devis.id}) }}" class="btn btn-info ml-auto mb-4">Envoyer le devis au client</a>
                         <a href="{{ path('admin_validation', {'id' : devis.id}) }}" class="btn btn-success ml-auto mb-4">Valider le devis</a>
 {#                        <a href="#" class="btn btn-success ml-auto mb-4">Payer et Continuer</a>#}
 {#                    </div>#}
